@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const massive = require("massive");
-require("dotenv").config();
-app.use(express.json());
 const controller = require("./controller");
+require("dotenv").config();
 
-const { CONNECTION_STRING, SERVER_PORT } = process.env;
+// const { CONNECTION_STRING } = process.env;
+console.log(process.env.CONNECTION_STRING);
+app.use(express.json());
 
-massive(CONNECTION_STRING, SERVER_PORT)
+massive(process.env.CONNECTION_STRING)
 	.then((dbInstance) => {
 		app.set("db", dbInstance);
 		console.log("connected");
